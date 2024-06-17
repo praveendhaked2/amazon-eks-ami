@@ -28,3 +28,6 @@ sudo mv $PROJECT_DIR/_bin/nodeadm /usr/bin/
 
 # enable nodeadm bootstrap systemd units
 sudo systemctl enable nodeadm-config nodeadm-run
+
+# add cuda runtime image
+sudo nerdctl pull nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04

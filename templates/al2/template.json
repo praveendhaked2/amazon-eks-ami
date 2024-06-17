@@ -55,7 +55,6 @@
       "snapshot_users": "{{user `ami_users`}}",
       "source_ami_filter": {
         "filters": {
-          "name": "{{user `source_ami_filter_name`}}",
           "architecture": "{{user `arch`}}",
           "root-device-type": "ebs",
           "state": "available",
@@ -79,13 +78,13 @@
         {
           "device_name": "/dev/xvda",
           "volume_type": "{{user `volume_type`}}",
-          "volume_size": 20,
+          "volume_size": 100,
           "delete_on_termination": true
         }
       ],
       "aws_polling": {
-        "delay_seconds": 30,
-        "max_attempts": 90
+        "delay_seconds": 60,
+        "max_attempts": 150
       },
       "ami_regions": "{{user `ami_regions`}}",
       "iam_instance_profile": "{{user `iam_instance_profile`}}",
@@ -127,8 +126,14 @@
       "remote_folder": "{{ user `remote_folder`}}",
       "inline": [
         "mkdir -p {{user `working_dir`}}",
-        "mkdir -p {{user `working_dir`}}/log-collector-script"
+        "mkdir -p {{user `working_dir`}}/log-collector-script",
+        "mkdir -p {{user `working_dir`}}/gpu-scripts"
       ]
+    },
+    {
+      "type": "file",
+      "source": "{{template_dir}}/gpu-scripts/",
+      "destination": "{{user `working_dir`}}/gpu-scripts/"
     },
     {
       "type": "shell",
@@ -206,6 +211,13 @@
         "RUNC_VERSION={{user `runc_version`}}",
         "SSM_AGENT_VERSION={{user `ssm_agent_version`}}",
         "WORKING_DIR={{user `working_dir`}}"
+      ]
+    },
+    {
+      "type": "shell",
+      "remote_folder": "{{ user `remote_folder`}}",
+      "inline": [
+        "sudo cp -R {{user `working_dir`}}/gpu-scripts/* /etc/eks/"
       ]
     },
     {

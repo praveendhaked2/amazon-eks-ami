@@ -193,6 +193,13 @@
     {
       "type": "shell",
       "remote_folder": "{{ user `remote_folder`}}",
+      "inline": [
+        "sudo cp -R {{user `working_dir`}}/gpu-scripts/* /etc/eks/"
+      ]
+    },
+    {
+      "type": "shell",
+      "remote_folder": "{{ user `remote_folder`}}",
       "script": "{{template_dir}}/provisioners/install-worker.sh",
       "environment_vars": [
         "AWS_ACCESS_KEY_ID={{user `aws_access_key_id`}}",
@@ -211,13 +218,6 @@
         "RUNC_VERSION={{user `runc_version`}}",
         "SSM_AGENT_VERSION={{user `ssm_agent_version`}}",
         "WORKING_DIR={{user `working_dir`}}"
-      ]
-    },
-    {
-      "type": "shell",
-      "remote_folder": "{{ user `remote_folder`}}",
-      "inline": [
-        "sudo cp -R {{user `working_dir`}}/gpu-scripts/* /etc/eks/"
       ]
     },
     {

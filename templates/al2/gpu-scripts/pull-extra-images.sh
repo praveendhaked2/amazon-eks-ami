@@ -15,6 +15,8 @@ CACHE_IMGS=(
   ${CUSTOM_IMGS[@]:-}
 )
 
+echo "Pulling images ===>"
 for img in "${CACHE_IMGS[@]:-}"; do
-  nohup /etc/eks/containerd/pull-image.sh "${img}" > /dev/null &
+  nohup sudo /etc/eks/containerd/pull-image.sh "${img}" > /dev/null &
 done
+echo "image pull completed"

@@ -647,6 +647,6 @@ systemctl daemon-reload
 systemctl enable kubelet
 systemctl start kubelet
 
-/etc/eks/pull-extra-images.sh
+sudo /etc/eks/pull-extra-images.sh
 
 log "INFO: complete!"

@@ -56,6 +56,8 @@ sudo yum install -y \
   yum-plugin-versionlock
 
 # lock the version of the kernel and associated packages before we yum update
+sudo yum versionlock list
+sudo yum versionlock clear
 sudo yum versionlock kernel-$(uname -r) kernel-headers-$(uname -r) kernel-devel-$(uname -r)
 
 # Update the OS to begin with to catch up to the latest packages.
@@ -360,6 +362,7 @@ sudo chmod +x /etc/eks/get-ecr-uri.sh
 sudo mv $WORKING_DIR/eni-max-pods.txt /etc/eks/eni-max-pods.txt
 sudo mv $WORKING_DIR/bootstrap.sh /etc/eks/bootstrap.sh
 sudo chmod +x /etc/eks/bootstrap.sh
+sudo chmod +x /etc/eks/pull-extra-images.sh
 sudo mv $WORKING_DIR/max-pods-calculator.sh /etc/eks/max-pods-calculator.sh
 sudo chmod +x /etc/eks/max-pods-calculator.sh
 

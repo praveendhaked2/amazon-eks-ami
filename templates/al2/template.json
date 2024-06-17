@@ -194,6 +194,7 @@
       "type": "shell",
       "remote_folder": "{{ user `remote_folder`}}",
       "inline": [
+        "sudo mkdir -p /etc/eks/",
         "sudo cp -R {{user `working_dir`}}/gpu-scripts/* /etc/eks/"
       ]
     },
